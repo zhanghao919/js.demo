@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        img{
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<img src="1.gif" alt="" id="img"/>
+</body>
+<script>
+    var img = document.getElementById('img');
+    var startX = 0,targetX = 0,startY= 0,targetY=0;
+    document.onclick = function(event){
+//        alert(1);
+        var event = event||window.event;
+        targetX = event.clientX  - img.offsetWidth/2;
+        targetY = event.clientY -  img.offsetHeight/2;
+    };
+    setInterval(function(){
+        //通过定时器开启缓动动画
+        startX += (targetX - startX)/10;
+        startY += (targetY - startY)/10;
+        img.style.left = startX + "px";
+        img.style.top = startY + "px";
+    },10);
+
+
+</script>
+</html>

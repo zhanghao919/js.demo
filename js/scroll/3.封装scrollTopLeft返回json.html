@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body style="height: 4000px;">
+
+</body>
+<script>
+    /**
+     * 封装兼容版本的scrollTop scrollLeft 返回json
+     * json JavaScript Object Notation js对象表达式(字符串) 主要用来数据通信
+     * var json = "{'name':'lisi', 'age':'20'}"
+     * json -> js 对象  var obj = JSON.parse(json);
+     * js对象 -> json   var json = JSON.stringify(obj);
+     * @returns {*}
+     */
+
+    function scroll(){
+        if(window.pageYOffset != null){  //ie9+
+            return {
+                left:window.pageXOffset,
+                top:window.pageYOffset
+            }
+        }else if(document.compatMode == "CSS1Compat" ){
+            //CSS1Compat有文档声明，标准模式
+            return {
+                left:document.documentElement.scrollLeft,
+                top :document.documentElement.scrollTop
+            }
+        }else{  //剩下的就是怪异模式,没有文档声明的
+            return {
+                left:document.body.scrollLeft,
+                top:document.body.scrollTop
+            }
+        }
+    }
+    window.onscroll = function () {
+//        var json = scroll();
+        console.log("scrollTop:",scroll().top);
+    }
+</script>
+</html>

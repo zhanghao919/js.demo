@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>创建内部和外部的样式表</title>
+    <!-- <link rel="stylesheet" href=""> --> <!-- 外部样式表 -->
+    <!--<style></style>  内部样式表 -->
+</head>
+<body>
+<div class="demo" id="demo"></div>
+<button id="create0">创建外部样式表</button>
+<button id="create1">创建内部样式表</button>
+</body>
+<script>
+    function $( id){
+        return document.getElementById(id);
+    }
+    //创建外部样式表
+    $('create0').onclick = function(){
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'style.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    }
+    //创建内部样式表
+    $("create1").onclick = function(){
+        var style = document.createElement('style');//创建style节点
+        style.innerText = '.demo{background-color: green!important;border:1px solid #000;width: 100px;height: 100px;}';
+        document.getElementsByTagName('head')[0].appendChild(style);//将style节点添加到head
+    }
+
+
+</script>
+</html>

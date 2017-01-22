@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动日期</title>
+    <style>
+        input{
+            width: 1200px;
+            height: 40px;
+            font-size: 36px;
+            color: red;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="reversetime">
+</body>
+<script>
+    var reversetime = document.getElementById('reversetime');
+    getReverseTime();
+    function getReverseTime(){
+        var current = new Date();
+        var endcurrent = new Date("2017/1/28");
+        var time = (endcurrent.getTime()-current.getTime())/1000;
+        var d = parseInt(time/3600/24);//天数
+        var h = parseInt(time/3600%24);//小时
+        var m = parseInt(time/60%60);//分钟
+        var s = parseInt(time%60);//秒
+        reversetime.value = "距离春节还有"+d+"天"+h+"小时"+m+"分钟"+s+"秒";
+    }
+    setInterval(getReverseTime,1000);
+
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>窗口改变事件</title>
+    <!-- <link id="link" rel="stylesheet" href="large.css"> -->
+    <script>
+        window.onload  = function(){
+            //等页面加载完成执行代码
+        }
+    </script>
+</head>
+<body>
+</body>
+<script>
+    //兼容版本的检测屏幕宽度
+    function client(){
+        if(window.innerWidth != null){  // ie9及其以上版本
+            return {
+                width:window.innerWidth,
+                height:window.innerHeight
+            }
+        }else if(document.compatMode == 'CSS1Compat'){  //标准模式
+            return {
+                width:document.documentElement.clientWidth,
+                height:document.documentElement.clientHeight
+            }
+        }
+        //怪异模式
+        return {
+            width:document.body.clientWidth,
+            height:document.body.clientHeight
+        }
+    }
+
+    //窗口改变事件
+    //根据窗口宽度改变 更改css样式 实现响应式网页设计
+    //响应式页面开发 网页的CSS样式 适配不同的设备和终端
+    window.onresize = resize;
+    resize();
+    function resize(){
+        var cw = client().width;  //屏幕宽度
+        if(cw >960){
+            document.body.style.backgroundColor="red";
+        }else if(cw > 600 && cw <960){
+            document.body.style.backgroundColor = "green";
+        }else if(cw > 400 && cw <600){
+            document.body.style.backgroundColor = "orange";
+        }else if(cw <400){
+            document.body.style.backgroundColor = "blue";
+        }
+    }
+</script>
+</html>

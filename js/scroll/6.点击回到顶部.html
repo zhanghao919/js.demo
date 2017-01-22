@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .container{
+            width: 1000px;
+            height: 1000px;
+            margin: 0 auto;
+        }
+        .toTop{
+            width: 35px;
+            height: 65px;
+            background:url("Top.jpg") no-repeat;
+            cursor: pointer;
+            position: fixed;
+            right: 50px;
+            bottom: 50px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="toTop" id="toTop"></div>
+<div class="container">
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+    <p>内容部分</p> <br/>
+</div>
+</body>
+<script src="scroll.js"></script>
+<script>
+    function $(id){return document.getElementById(id);}
+    var start = 0,target = 0;
+    var timer = null;
+    window.onscroll = function () {
+        //第一个要求：窗口滚动，火箭图标出现 回到顶部后 ，火箭图标消失
+        $('toTop').style.display = 'block';
+        start = scroll().top;
+        ////第二个要求：点击火箭回到顶部
+        $('toTop').onclick = function () {
+            clearInterval(timer);
+            timer = setInterval(function(){
+                start += (target-start)/10;
+                window.scrollTo(0,start);//两个参数x,y分别表示水平方向和垂直方向
+                if(start == target){
+                    clearInterval(timer);
+                    $('toTop').style.display = 'none';
+                }
+            },30)
+
+        }
+    }
+</script>
+</html>

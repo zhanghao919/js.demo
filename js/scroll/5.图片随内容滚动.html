@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .content{
+            width: 1000px;
+            height: 3000px;
+            margin: 0 auto;
+        }
+        .ad{
+            width: 150px;
+            height: 500px;
+            position: absolute;
+            top: 50px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<img src="aside.jpg" alt="" class="ad" id="ad"/>
+<div class="content">
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+    <p>内容内容内容</p>
+</div>
+</body>
+<script src="scroll.js"></script>
+<script>
+    function $(id){return document.getElementById(id);}
+    var start = 0,target = 0;
+    var timer = null;
+    var adTop = $('ad').offsetTop;
+//    console.log(adTop);
+    window.onscroll = function(){
+        clearInterval(timer);
+        target = scroll().top+adTop;
+        console.log($('ad').offsetTop);
+        timer= setInterval(function(){
+            start = start + (target - start)/10;
+            $("ad").style.top = start + "px";
+        },20)
+    }
+</script>
+</html>

@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跨浏览器事件处理</title>
+</head>
+<body>
+<button id="btn">点我</button>
+<form action="#" method="post">
+    <input type="text" name="username">
+    <button id="submit">提交</button>
+</form>
+<script>
+    var EventUtil = {
+        //是否支持DOM2 是否是IE 是否支持DOM0一般前两个if包含了所有情况
+        //添加句柄
+        addHandler: function(element, type, handler){
+            //DOM2级事件
+            if (element.addEventListener){
+                element.addEventListener(type, handler, false);
+                //IE事件
+            } else if (element.attachEvent){
+                element.attachEvent("on" + type, handler);
+            } else {
+                //DOM0级事件添加
+                element["on" + type] = handler;
+                // btn[onclick] = function
+            }
+        },
+        //移除句柄
+        //是否支持DOM2是否是IE是否支持DOM0
+        removeHandler: function(element, type, handler){
+            //DOM2级事件
+            if (element.removeEventListener){
+                element.removeEventListener(type, handler, false);
+                //IE事件
+            } else if (element.detachEvent){
+                element.detachEvent("on" + type, handler);
+                //DOM0级事件
+            } else {
+                element["on" + type] = null;
+            }
+        },
+        //事件对象
+        //IE没有event对象，因此使用window.event
+        getEvent: function(event){
+            // return event ? event : window.event;
+            return event || window.event;
+        },
+        /*使用getEvent()方法得到event对象之后
+         才可以使用getTarget()  事件目标
+         、preventDefault()  阻止默认行为
+         、stopPropagation()方法  阻止事件冒泡/传播
+         */
+
+        //事件目标
+        //先检测DOM0 DOM2的target属性，然后检测IE的srcElement属性
+        getTarget: function(event){
+            return event.target || event.srcElement;
+        },
+        //阻止默认行为
+        //先检测DOM0 DOM2的preventDefault()，再检测IE的returnValue
+        preventDefault: function(event){
+            if (event.preventDefault){
+                event.preventDefault();
+            } else {
+                //IE的阻止默认行为
+                event.returnValue = false;
+            }
+        },
+
+        //阻止冒泡
+        //先检测DOM0 DOM2的stopPropagation()，再检测IE的cancelBubble
+        stopPropagation: function(event){
+            if (event.stopPropagation){
+                event.stopPropagation();
+            } else {
+                //IE阻止冒泡
+                event.cancelBubble = true;
+            }
+        }
+    };
+    //测试
+
+    var btn = document.getElementById("btn");
+    //使用跨浏览器事件处理对象来添加或者移除事件
+    EventUtil.addHandler(btn, "click", handler);
+
+    function handler(event){
+        event = EventUtil.getEvent(event);  //得到事件对象
+        var target = EventUtil.getTarget(event);  //事件目标
+        alert(target);
+    };
+
+    //阻止提交按钮的默认行为
+    var submit = document.getElementById("submit");
+    //添加点击事件
+    //submit.onclick = function ...
+    EventUtil.addHandler(submit,'click',demo);
+
+    function demo(event){
+        event = EventUtil.getEvent(); //事件对象
+        EventUtil.preventDefault(event); //阻止默认行为
+    }
+
+    //document添加单击事件
+    EventUtil.addHandler(document,'click',function(){
+        alert("你点击了文档");
+    });
+
+    //请使用EventUtil 阻止btn的事件冒泡
+
+
+
+</script>
+</body>
+</html>

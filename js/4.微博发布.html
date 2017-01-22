@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        ul{
+            list-style-type: none;
+        }
+        *{margin:0;padding: 0;}
+        .box {
+            margin: 100px auto;
+            width: 600px;
+            height: auto;
+            padding: 30px 0;
+            text-align:left;
+            border:1px solid red;
+        }
+        textarea {
+            width: 550px;
+            resize: none;  /*防止用户拖动 右下角*/
+        }
+        .box li {
+            width: 550px;
+            line-height: 30px;
+            border-bottom:1px dashed #ccc;
+            margin-left: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+        .box li a {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <span>有什么新鲜事儿想告诉大家: </span>
+    <textarea name="" id="txt" cols="30" rows="10"></textarea>
+    <button id="btn">发布</button>
+    <ul id="content"></ul>
+</div>
+</body>
+<script>
+    //封装是为了复用代码
+    //函数名 $ 接收一个id字符串，返回id对应的dom元素对象
+    function $(id){
+        return document.getElementById(id);
+    }
+    //获取元素
+    var txt = $("txt"); //文本输入框textarea
+    var btn = $("btn"); //按钮
+    var content = $("content");  //ul列表
+
+    btn.addEventListener('click',function(){
+        if(!txt.value){
+            alert("请输入内容");
+            return;
+        }
+        console.log(txt.value);  //获取文本框的值
+        //创建li元素
+        var li = document.createElement("li");
+        //给li元素设置文本内容 innerHTML
+        //javascript:;伪协议
+        li.innerHTML = txt.value + "<a href='javascript:;'>删除</a>";
+        console.log(li);
+        //将li元素 添加到ul中  appendChild添加到对象末尾
+        //insertBefore在元素之前插入
+        //判断ul列表是否有li元素，如果没有li元素，直接appendChild
+        //children属性代表元素的所有后代元素
+        console.log("children",content.children);
+        if(content.children.length == 0){
+            content.appendChild(li);
+        }else{
+            //如果ul列表以及包含li元素，要插入到第一个元素之前
+            //insertBefore第一参数 是要插入的元素 第二参数是参照对象
+            content.insertBefore(li,content.children[0]);
+        }
+
+        //清空文本输入框
+        txt.value = "";
+        //获取到所有的a元素对象 ，绑定点击事件
+        // querySelectorAll通过选择器查找元素 返回非动态集合
+        //querySelector 返回单个元素
+        //getElementsByTagName返回动态集合
+        var as = content.getElementsByTagName("a"); //3
+        console.log(as);
+        for(var i=0;i<as.length;i++){  //3
+            //DOM1级事件
+            as[i].onclick = function(){
+                content.removeChild(this.parentNode);
+            }
+        }
+    });
+</script>
+</html>

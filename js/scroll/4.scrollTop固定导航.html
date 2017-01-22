@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>固定导航</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .w{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        .head{
+            height: 100px;
+            background-color: red;
+        }
+        .nav{
+            height: 50px;
+            background-color: green;
+        }
+        .content{
+            height: 2000px;
+            background-color: orange;
+        }
+        .fixed{
+            position: fixed; /*固定定位*/
+            top:0;
+            left:50%;
+            margin-left: -500px;
+        }
+    </style>
+</head>
+<body>
+<div class="w head" id="header">头部</div>
+<div class="w nav" id="nav">导航区</div>
+<div class="w content">内容区</div>
+</body>
+<script src="scroll.js"></script>
+<script>
+    //窗口滚动事件
+    window.onscroll = function(){
+        //拿到scrollTop
+        var scrollTop = scroll().top;
+        var header = document.getElementById("header");
+        var nav = document.getElementById("nav");
+        var headerHeight = header.offsetHeight;
+        if(scrollTop>headerHeight){
+            //如果scrollTop大于header的高度,也就是当前窗口正好看不见header部分的时候
+            nav.className = "w nav fixed";
+        }else{
+            nav.className = "w nav";
+        }
+    }
+</script>
+</html>

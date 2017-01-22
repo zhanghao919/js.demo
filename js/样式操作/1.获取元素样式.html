@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素样式</title>
+    <style>
+        .demo{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+            background-color: #ff0;
+            color:#000;
+        }
+    </style>
+</head>
+<body>
+<div class="demo" id="demo">我是一个容器</div>
+</body>
+<script>
+    //getComputedStyle 得到元素的实际样式
+    var demo = document.getElementById("demo");
+//    demo.style.backgroundColor = "red";
+//    console.log(demo.style.backgroundColor);
+//    console.log(demo.currentStyle.color);  //ie8以下
+//    console.log(window.getComputedStyle(demo).color);//标准浏览器
+    //getStyle 获取元素样式的兼容版本
+    function getStyle(obj,attr){
+        if(obj.currentStyle)  // ie oprea等
+        {
+            return obj.currentStyle[attr];
+        }
+        else
+        {
+            // w3c 浏览器 null是伪类
+            return window.getComputedStyle(obj,null)[attr];
+        }
+    }
+    console.log(getStyle(demo,"background-color"))
+
+</script>
+</html>

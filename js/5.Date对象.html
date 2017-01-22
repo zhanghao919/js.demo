@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+</body>
+<script>
+    var date = new Date();  //当前时间
+    var date = new Date(2017/1/17);  //指定时间
+    date = new Date(2017,0,28);
+    console.log(date);
+
+    //Date对象的方法
+    var now = Date.now(); //当前毫秒值
+    date = Date.parse("2012-11-12");  //返回指定日期字符串的毫秒值
+    console.log(now);
+
+    //Date对象中的获得/设置 年月日时分秒 的方法 get/set
+    var current = new Date();
+    var year = current.getFullYear();//年
+    var month = current.getMonth();//月
+    var dayOfMonth = current.getDate();//日
+    var hour = current.getHours();//时
+    var min = current.getMinutes();//分
+    var sec = current.getSeconds();//秒
+    var ms = current.getMilliseconds();//毫秒
+    var dayOfWeek = current.getDay();//星期几
+    var week = ["一","二","三","四","五","六","日"]; //查表法
+    console.log(year);
+    console.log(month);
+    console.log(dayOfMonth);
+    console.log(hour);
+    console.log(min);
+    console.log(sec);
+    console.log(ms);  //1000 ms  = 1s
+    console.log(dayOfWeek);  //2
+    console.log("今天是"+year+"年"+month+"月"+dayOfMonth+"号"+hour+"点"+min+"分"+sec+"秒"+ms+"毫秒，星期"+week[dayOfWeek-1]);
+    //格式化日期 ? 扩展formatDate，可以通过传入日期格式化字符串来支持不同的格式的日期
+    function formatDate(date){
+        var year = date.getFullYear();  //获得当期日期对象的年份
+        var month = padding(date.getMonth() + 1); //月份
+        var dayOfMonth = padding(date.getDate());  // 日期
+        var hour = padding(date.getHours());  //时
+        var min = padding(date.getMinutes());  //分
+        var sec = padding(date.getSeconds());  //秒
+        return year+"-"+month+"-"+dayOfMonth+" "+hour+":"+min+":"+sec;
+    }
+    function padding(num){
+        return num>=10?""+num :"0"+num;
+    }
+    var dateStr = formatDate(new Date());
+    console.log(dateStr);
+    var demo = new Date();
+    demo.setYear(2016);
+    demo.setMonth(11);
+    demo.setDate(12);
+    demo.setHours(12);
+    demo.setMinutes(5);
+    demo.setSeconds(29);
+    console.log(formatDate(demo));
+</script>
+</html>

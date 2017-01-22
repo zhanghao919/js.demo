@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>换肤</title>
+    <link id="link" rel="stylesheet" href="red.css">
+</head>
+<body>
+<button id="red">red</button>
+<button id="green">green</button>
+</body>
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+    //点击red按钮 设置外部样式为 red.css
+    $('red').onclick = function(){
+        $('link').href="red.css";
+    }
+    //点击green按钮 设置外部样式为green.css
+    $('green').onclick = function(){
+        $('link').href="green.css";
+    }
+</script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖动弹窗</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+        /*弹窗*/
+        .alertBox {
+            width: 400px;
+            height: 350px;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            display: none;
+        }
+        .title {
+            width: 100%;
+            height: 30px;
+            background-color: #369;
+            text-align: right;
+            line-height: 30px;
+            cursor: move;
+        }
+
+    </style>
+</head>
+<body>
+<a href="javascript:;" id="reg">点击注册</a>
+<!-- 弹窗 -->
+<div class="alertBox" id="box">
+    <div class="title" id="drop">
+        <span style="float: left;">注册信息</span>
+        <a href="javascript:;" id="close">【关闭】</a>
+    </div>
+</div>
+</body>
+<script>
+    function $(id){return document.getElementById(id);}
+    //点击  注册出现弹窗
+    $('reg').addEventListener('click',function(){
+        $('box').style.display = "block";
+    })
+    //点击关闭按钮  弹窗隐藏
+    $('close').addEventListener('click',function(){
+        $('box').style.display = "none";
+    })
+    //鼠标按下事件
+    $('drop').addEventListener('mousedown',function(evwnt){
+        var event = event || window.event;
+        var x = event.clientX - this.offsetParent.offsetLeft;
+        var y = event.clientY -  this.offsetParent.offsetTop;
+        document.onmousemove = function(event){
+            var event = event || window.event;
+            box.style.left = event.clientX- x +'px';
+            box.style.top = event.clientY  - y + 'px';
+//            防止拖拉过程中的选中内容兼容
+            window.getSelection()?window.getSelection().removeAllRanges():document.selection.empty();
+        }
+    })
+    //取消鼠标拖拉事件
+    document.onmouseup = function(){
+        document.onmousemove = null;
+    }
+</script>
+</html>

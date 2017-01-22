@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<button>全选</button>
+<button>取消</button>
+<button>反选</button>
+<ul id="box">
+    <li><input type="checkbox"/></li>
+    <li><input type="checkbox"/></li>
+    <li><input type="checkbox"/></li>
+    <li><input type="checkbox"/></li>
+    <li><input type="checkbox"/></li>
+</ul>
+</body>
+<script>
+//    var q =document.getElementById('quan');
+//    var qu = document.getElementById('qu');
+//    var fan = document.getElementById('fan');
+//    var inputs = document.getElementsByTagName('input');
+//    q.onclick=function(){
+//        for(var i=0;i<inputs.length;i++){
+//            inputs[i].checked= true;
+//        }
+//    };
+//    qu.onclick=function(){
+//        for(var i =0; i<inputs.length;i++){
+//            inputs[i].checked = false;
+//        }
+//    };
+//    fan.onclick=function(){
+//        for(var i =0; i<inputs.length;i++){
+//            inputs[i].checked = ! inputs[i].checked;
+//        }
+//
+//    }
+    var btns = document.getElementsByTagName('button');
+    var inputs = document.getElementsByTagName('input');
+    console.log(btns);
+    console.log(inputs);
+    btns[0].addEventListener('click',function(){
+        for(var i=0;i<inputs.length;i++){
+            inputs[i].checked= true;
+        }
+    });
+    btns[1].addEventListener('click',function(){
+    for(var i=0;i<inputs.length;i++){
+        inputs[i].checked= false;
+    }
+    })
+    btns[2].addEventListener('click',function(){
+    for(var i=0;i<inputs.length;i++){
+        inputs[i].checked = ! inputs[i].checked;
+    }
+})
+</script>
+</html>

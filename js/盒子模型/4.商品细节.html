@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商品细节</title>
+    <style>
+        .box{
+            width: 350px;
+            height: 350px;
+            border:1px solid #ccc;
+            margin:100px;
+            position: relative;
+        }
+        .small{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top：0;
+            left: 0;
+        }
+        #mask{
+            width: 100px;
+            height: 100px;
+            background:rgba(255,255,0,.4); /*alpha*/
+            position: absolute;
+            top:0;
+            left: 0;
+            display: none;
+            cursor: move;
+        }
+        .big{
+            width: 450px;
+            height: 450px;
+            position: absolute;
+            top:0;
+            left: 360px;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+        #pic{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <!-- 小图的盒子 -->
+    <div class="small">
+        <img src="001.jpg" alt="">
+        <!-- 黄色遮罩层 -->
+        <div id="mask"></div>
+    </div>
+    <!-- 大图的盒子 -->
+    <div class="big">
+        <img src="0001.jpg" alt="" id="pic">
+    </div>
+</div>
+</body>
+<script>
+    var box = document.querySelector(".box");
+    var small = box.children[0];
+    var mask = small.children[1];
+    var big = box.children[1];
+    var pic = big.children[0];
+
+    //当鼠标进入small，mask和big显示
+    small.addEventListener('mouseover',function(){
+        mask.style.display = "block";
+        big.style.display = "block";
+    });
+    //当鼠标移出small ,mask big隐藏
+    small.addEventListener('mouseout',function(){
+        mask.style.display = "none";
+        big.style.display = "none";
+    });
+
+    //当鼠标在small上移动 mask跟着移动
+    small.addEventListener('mousemove',function(event){
+        //获取鼠标移动的时候 盒子内的坐标
+        var event = event || window.event;
+        var x =0,y=0;
+        x = event.clientX - this.offsetParent.offsetLeft -mask.offsetWidth/2;
+        y = event.clientY - this.offsetParent.offsetTop - mask.offsetHeight/2;
+        //判断mask移动的水平边界
+        if(x<0){
+            x = 0;
+        }else if( x >this.offsetWidth - mask.offsetWidth){
+            x = this.offsetWidth - mask.offsetWidth;
+        }
+        //判断mask移动的垂直边界
+        if(y<0){
+            y = 0;
+        }else if( y > this.offsetHeight - mask.offsetHeight){
+            y = this.offsetHeight - mask.offsetHeight;
+        }
+
+        //按照鼠标当前坐标移动mask的位置
+        mask.style.left = x +'px';
+        mask.style.top = y +'px';
+        //mask在small中动的时候，大盒子中图片按照一定比例来动
+
+        pic.style.left = -x * 450/350 +'px';
+        pic.style.top = -y * 450/350 +"px";
+    });
+
+
+    /*
+     知识点：HTMLElement.offsetParent 是一个只读属性，返回一个指向最近的（closest，指包含层级上的最近）包含该元素的定位元素
+     */
+</script>
+</html>

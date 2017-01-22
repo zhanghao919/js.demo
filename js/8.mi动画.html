@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>小米手机动画</title>
+    <style>
+        .box{
+            width: 500px;
+            height: 400px;
+            margin: 100px auto;
+            background-color: pink;
+            overflow: hidden;
+            position: relative;
+        }
+        #pic{
+            position: absolute;
+            top:0;
+            left: 0;
+        }
+        .ctrl{
+            width: 100%;
+            height:50%;
+            position: absolute;
+            left: 0;
+        }
+        .up{
+            top: 0;
+            cursor: pointer;
+        }
+        .down{
+            bottom:0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <!-- 动画图片 -->
+    <img src="mi.png" id="pic" alt="">
+    <!-- 控制div -->
+    <div class="ctrl up" id="up"></div>
+    <div class="ctrl down" id="down"></div>
+</div>
+</body>
+<script>
+    function $(id){return document.getElementById(id);}
+    var num = 0 ;
+    var time = null;
+    $("up").addEventListener('mouseover',function(){
+        time = setInterval(function(){
+            num -=2;
+            num>=-1070? $('pic').style.top=num+'px':clearInterval(time);
+        },30)
+    });
+
+    $("down").addEventListener('mouseover',function(){
+//        console.log(2);
+        time = setInterval(function(){
+            num++;
+            num<=0? $('pic').style.top=num+'px':clearInterval(time);
+        },30);
+    });
+
+    //当鼠标移出两个div的时候，停止动画
+    $("up").addEventListener('mouseout',function(){
+//        console.log(3);
+        clearInterval(time);
+    });
+    $("down").addEventListener('mouseout',function(){
+//        console.log(4);
+        clearInterval(time);
+    });
+
+</script>
+
+</html>

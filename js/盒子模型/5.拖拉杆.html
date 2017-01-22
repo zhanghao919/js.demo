@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖动进度条</title>
+    <style>
+        .scroll{
+            width: 400px;
+            height: 8px;
+            margin: 100px;
+            background-color: #ccc;
+            position: relative;
+        }
+        .bar{
+            width: 10px;
+            height: 25px;
+            background-color:#356;
+            position: absolute;
+            top:-7px;
+            left: 0;
+            cursor: pointer;
+        }
+        .mask{
+            width: 0;
+            height: 100%;
+            background-color: #356;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="scroll" id="scroll">
+    <!-- 滑块 -->
+    <div class="bar"></div>
+    <!-- 已经拖动部分 -->
+    <div class="mask"></div>
+</div>
+<span></span>
+</body>
+<script>
+    var scroll = document.getElementById('scroll');
+    var bar = scroll.children[0];
+    var mask = scroll.children[1];
+    //拖动动作分解 = 鼠标按下事件mousedown + 鼠标移动事件
+    bar.addEventListener('mousedown',function(event){
+        document.onmousemove = function(event){
+            var event = event || window.event;
+            //bar移动的距离=鼠标移动的屏幕坐标-scroll.offsetLeft
+            var x = parseInt(event.clientX-scroll.offsetLeft);
+            if(x <0){
+                x = 0;
+            }else if(x>390){
+                x= 390;
+            }
+            bar.style.left = x + 'px';
+            mask.style.width = bar.style.left;
+            //防止拖动过程选中内容(兼容写法)
+            window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+            //计算走过的比例
+            var percentAge = parseInt(x / 390 * 100);
+            scroll.nextElementSibling.innerHTML = "已经走了"+percentAge+"%";
+        }
+    });
+
+    //鼠标抬起的时候 清空onmousemove事件
+    document.addEventListener('mouseup',function(){
+        document.onmousemove = null;
+    });
+
+</script>
+</html>

@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<button id="btn">点我</button>
+<a href="http://www.baidu.com" id="link">百度</a>
+<form action="#" method="post">
+    <input type="text" name="username">
+    <button id="submit">提交</button>
+</form>
+</body>
+<script>
+    //onclick="alert(1)" HTML事件处理
+
+    //DOM0级事件
+    // var btn = document.getElementById("btn");
+    // btn.onclick = function(event){
+    // 	alert(event.type); //"click"
+    // };
+    // btn.onclick = null;
+    //DOM2级事件
+    btn.addEventListener("click",demo, false);
+    function demo(event){
+        alert(event.type); //"click"
+    }
+    //取消事件绑定
+    btn.removeEventListener("click",demo,false);
+
+    //阻止DOM元素的默认行为 event.preventDefault
+    //阻止超链接的跳转
+    var link = document.getElementById("link");
+    // console.log(link);
+    link.onclick = function(event){
+        event.preventDefault();
+    }
+
+    var submit = document.getElementById("submit");
+    submit.onclick = function(){
+        //阻止表单提交按钮的默认行为
+        event.preventDefault();
+    }
+</script>
+</html>

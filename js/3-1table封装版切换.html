@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tab选项卡</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .container{
+            width: 572px;
+            border: 1px solid #999;
+            height: 200px;
+            margin: 100px auto;
+            font: 14px "微软雅黑";
+            overflow: hidden;
+        }
+        .nav{
+            list-style: none;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+        }
+        .nav li{
+            float: left;
+            width: 190px;
+            background-color: #f1f1f1;
+            margin: 0;
+            border-bottom: 1px solid #cecece;
+        }
+        .nav li:nth-child(2){
+            border-left: 1px solid #cecece;
+            border-right: 1px solid #cecece;
+        }
+        .nav .cur{
+            background-color: #fff;
+            border-bottom: none;
+        }
+        .container div{
+            width: 100%;
+            height: 170px;
+            display: none;
+        }
+        .container .show{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="container" id="one">
+    <ul class="nav">
+        <li class="cur">课程</li>
+        <li>学习计划</li>
+        <li>技能图谱</li>
+    </ul>
+    <div class="show">课程内容</div>
+    <div>学习计划内容</div>
+    <div>技能图谱内容</div>
+</div>
+<div class="container" id="two">
+    <ul class="nav">
+        <li class="cur">课程</li>
+        <li>学习计划</li>
+        <li>技能图谱</li>
+    </ul>
+    <div class="show">课程内容</div>
+    <div>学习计划内容</div>
+    <div>技能图谱内容</div>
+</div>
+<div class="container" id="three">
+    <ul class="nav">
+        <li class="cur">课程</li>
+        <li>学习计划</li>
+        <li>技能图谱</li>
+    </ul>
+    <div class="show">课程内容</div>
+    <div>学习计划内容</div>
+    <div>技能图谱内容</div>
+</div>
+<div class="container" id="four">
+    <ul class="nav">
+        <li class="cur">课程</li>
+        <li>学习计划</li>
+        <li>技能图谱</li>
+    </ul>
+    <div class="show">课程内容</div>
+    <div>学习计划内容</div>
+    <div>技能图谱内容</div>
+</div>
+</body>
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+//    table封装
+    function tab (obj){
+        var target = $(obj);
+        var lis = target.getElementsByTagName('li');
+        var divs = target.getElementsByTagName('div');
+        for(var i = 0;i<lis.length;i++){
+            lis[i].index = i;
+            lis[i].addEventListener('mouseover',function(){
+                //去掉所有样式
+                for(var j in lis){
+                    lis[j].className = "";
+                    divs[j].className = "";
+                }
+                //给当前指向的加上样式
+                this.className = "cur";
+                divs[this.index].className = "show";
+            })
+        }
+    }
+    //调用tab函数，实现多个tab切换
+    tab('one');
+    tab('two');
+    tab('three');
+    tab('four');
+</script>
+</html>

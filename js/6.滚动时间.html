@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>滚动日期</title>
+    <style>
+        input{
+            width: 1200px;
+            height: 40px;
+            font-size: 36px;
+            color: red;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<input type="text" id="time">
+</body>
+<script>
+    function getTime(){
+        var current = new Date();
+        var year = current.getFullYear();//年
+        var month = current.getMonth()+1;//月
+        var dayOfMonth = current.getDate();//日
+        var hour = padding(current.getHours());//时
+        var min = padding(current.getMinutes());//分
+        var sec = padding(current.getSeconds());//秒
+        var ms = paddingMS(current.getMilliseconds());//毫秒
+        var dayOfWeek = current.getDay();//星期几
+        var week = ["一","二","三","四","五","六","日"]; //查表法
+
+        var time = document.getElementById("time");
+        time.value = "现在是"+year+"年"+month+"月"+dayOfMonth+"号"+hour+"点"+min+"分"+sec+"秒"+ms+"毫秒星期"+week[dayOfWeek-1];
+    }
+    function padding(num){
+        return num>=10? ""+num :"0"+num;
+    }
+    function paddingMS(num){
+        if(num<10){
+            return "00"+num;
+        }else if(num>=10 && num<100){
+            return "0"+num;
+        }else{
+            return ""+num;
+        }
+    }
+    //开启一个定时器 setInterval第一参数，函数，time是每隔time执行一次函数
+    //setInterval(func(){},time); time单位是毫秒
+    setInterval(getTime,1);
+</script>
+</html>

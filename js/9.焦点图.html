@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>焦点图</title>
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+		.box{
+			width: 490px;
+			height: 170px;
+			margin:100px auto;
+			border:1px solid #ccc;
+			padding: 3px;
+			position: relative;
+		}
+		img{
+			vertical-align: top; /*去掉图片底部的默认三像素空白*/
+		}
+		.slide{
+			width: 100%;
+			height: 100%;
+			position:relative;
+			overflow: hidden;
+		}
+		.slide ul{
+			width: 500%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+		.slide ul li{
+			float: left;
+		}
+		ol{
+			position: absolute;
+			left:50%;
+			transform:translateX(-50%);
+			bottom: 5px;
+			cursor: pointer;
+		}
+		ol>li{
+			display: inline-block;
+			margin-right: 5px;
+			width: 18px;
+			height: 18px;
+			background-color: #fff;
+			text-align: center;
+			line-height: 18px;
+
+		}
+		ol .cur{
+			background-color: #ff0;
+		}
+	</style>
+</head>
+<body>
+	<div class="box" id="scroll">
+		<div class="slide">
+			<ul>
+				<li><img src="01.jpg" alt=""></li>
+				<li><img src="02.jpg" alt=""></li>
+				<li><img src="03.jpg" alt=""></li>
+				<li><img src="04.jpg" alt=""></li>
+				<li><img src="05.jpg" alt=""></li>
+			</ul>
+		</div>	
+		<ol>
+			<li class="cur">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ol>
+	</div>
+<script>
+	var scroll = document.getElementById("scroll");
+	var ul = scroll.children[0].children[0];
+	var ol = scroll.children[1];
+	//ol下所有的li
+	var lis = ol.children;
+	console.log(lis);
+	//遍历lis,给每一个li添加鼠标进入事件
+	var timer = null;
+	//定义起始位置和目标位置
+	var start = 0,target = 0;
+	for(var i=0;i<lis.length;i++){
+		lis[i].index = i; //保存当前操作的li元素的索引值
+		lis[i].addEventListener('mouseover',function(){
+			//去掉所有li的样式
+			for(var j=0;j<lis.length;j++){
+				lis[j].className = "";
+			}
+			//this指向当前事件的调用者 为当前li加上cur样式
+			this.className = "cur";
+
+			 //目标位置也就是ul移动的距离=图片的宽度×索引值
+			target = this.index * -490;
+			//开启定时器做动画
+			timer = setInterval(function(){
+				 start += (target - start)/20;
+				 start >= -1960?ul.style.left = start +"px":clearInterval(timer);
+			},10);
+
+
+		});
+	}
+</script>
+</body>
+</html>
